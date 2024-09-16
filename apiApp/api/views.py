@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 
-from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from rest_framework import status
 
 from apiApp.models import Movie
@@ -260,3 +260,4 @@ def movie_details(request,pk):
         movie = Movie.objects.get(pk=pk)
         movie.delete()       
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
