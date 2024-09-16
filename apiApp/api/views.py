@@ -219,7 +219,7 @@ from .serializers import MovieSerializer
 #         return Response(status=status.HTTP_204_NO_CONTENT)
         
 
-@api_view(['GET'])
+@api_view(['GET','POST'])
 def movie_list(request):
     
     if request.method == 'GET':
@@ -227,13 +227,13 @@ def movie_list(request):
         serializer = MovieSerializer(movies, many=True)
         return Response(serializer.data)
     
-    # if request.method == 'POST':
-    #     serializer = MovieSerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data)
-    #     else:
-    #         return Response(serializer.errors)
+    if request.method == 'POST':
+        serializer = MovieSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
 
 
 @api_view(['GET'])

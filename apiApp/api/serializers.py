@@ -1,5 +1,6 @@
 from rest_framework import serializers
-# from apiApp.models import Watchlist, StreamPlatform, Review, Movie
+from apiApp.models import Movie
+# from apiApp.models import Watchlist, StreamPlatform, Review
 
 
 # class ReviewSerializer(serializers.ModelSerializer):
@@ -54,8 +55,8 @@ class MovieSerializer(serializers.Serializer):
     description = serializers.CharField()
     active = serializers.BooleanField()
     
-#     def create(self, validated_data):
-#         return Movie.objects.create(**validated_data)
+    def create(self, validated_data):
+        return Movie.objects.create(**validated_data)
     
 #     def update(self, instance, validated_data):
 #         instance.name = validated_data.get('name', instance.name)
