@@ -1,7 +1,12 @@
 
 from django.urls import path, include
+<<<<<<< HEAD
 from apiApp.views import movieList, movieDetail
 # from .views import MovieListAV,MovieDetailAV
+=======
+from apiApp.views import  movieList, movieDetail
+# from apiApp.views import MovieListAV,MovieDetailAV
+>>>>>>> 20391f272b04a127e42e82561594e6864c9ff5fc
 # from . views import (WatchListAV, WatchListDetailAV, StreamPlatformAV, 
 #                     StreamPlatformDetailAV,ReviewList, ReviewDetail, 
 #                     ReviewCreate, StreamPlatformVS)
