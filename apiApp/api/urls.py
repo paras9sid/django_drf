@@ -1,12 +1,6 @@
-
 from django.urls import path, include
-<<<<<<< HEAD
-from apiApp.views import movieList, movieDetail
+from .views import movie_list, movie_details
 # from .views import MovieListAV,MovieDetailAV
-=======
-from apiApp.views import  movieList, movieDetail
-# from apiApp.views import MovieListAV,MovieDetailAV
->>>>>>> 20391f272b04a127e42e82561594e6864c9ff5fc
 # from . views import (WatchListAV, WatchListDetailAV, StreamPlatformAV, 
 #                     StreamPlatformDetailAV,ReviewList, ReviewDetail, 
 #                     ReviewCreate, StreamPlatformVS)
@@ -20,8 +14,8 @@ from apiApp.views import  movieList, movieDetail
 
 
 urlpatterns = [
-    path('list/',movieList,name='movie_list'),
-    path('list/<int:pk>/',movieDetail,name='movie_detail'),
+    path('list/',movie_list,name='movie_list'),
+    path('list/<int:pk>/',movie_details,name='movie_detail'),
     
     # path('list/',MovieListAV.as_view()),
     # path('list/<int:pk>/',MovieDetailAV.as_view()),
