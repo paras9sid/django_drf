@@ -19,13 +19,13 @@ class StreamPlatformSerializer(serializers.ModelSerializer):
 # class StreamPlatformSerializer(serializers.HyperlinkedModelSerializer):
     
     # Nested Serializer Realtionship
-    watchlist = WatchListSerializer(many=True, read_only=True)
+    # watchlist = WatchListSerializer(many=True, read_only=True)
     
-    # watchlist = serializers.HyperlinkedRelatedField(
-    #     many=True,
-    #     read_only=True,
-    #     view_name='watch_list_detail'
-    # )
+    watchlist = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='watch_list_detail'
+    )
 
     
     class Meta:
