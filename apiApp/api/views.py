@@ -151,6 +151,9 @@ class StreamPlatformAV(APIView):
 
     def get(self,request):
         platform = StreamPlatform.objects.all()
+        # serializer = StreamPlatformSerializer(platform, many=True)
+        
+        # context for hyperlinkrelatedfield and hyperlinkModelSerilizer- serializer.py
         serializer = StreamPlatformSerializer(platform, many=True,  context={'request': request})
         return Response(serializer.data)
     

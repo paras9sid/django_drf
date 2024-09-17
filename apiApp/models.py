@@ -25,17 +25,19 @@ class Watchlist(models.Model):
     def __str__(self) -> str:
         return str(self.id) + " | " + self.title
     
-# class Review(models.Model):
-#     review_user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     rating = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-#     watchlist = models.ForeignKey(Watchlist, on_delete=models.CASCADE, related_name='reviews')
-#     description = models.CharField(max_length=200, null=True)
-#     active = models.BooleanField(default=True)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
+class Review(models.Model):
+    # review_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    rating = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    watchlist = models.ForeignKey(Watchlist, on_delete=models.CASCADE, related_name='reviews')
+    description = models.CharField(max_length=200, null=True)
+    active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
-#     def __str__(self) -> str:
-#         return str(self.id) + " | " + str(self.rating) + " | " + self.watchlist.title + " | " + str(self.review_user)
+    def __str__(self) -> str:
+        # return str(self.id) + " | " + str(self.rating) + " | " + self.watchlist.title + " | " + str(self.review_user)
+        return str(self.id) + " | " + str(self.rating) + " | " + self.watchlist.title
+
     
 
     
