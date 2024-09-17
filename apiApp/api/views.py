@@ -96,6 +96,9 @@ from rest_framework.views import APIView
 #     def post(self, request, *args, **kwargs):
 #         return self.create(request, *args, **kwargs)
 
+
+
+
 class MovieListAV(APIView):
     
 #     permission_classes = [IsAdminOrReadOnly]
