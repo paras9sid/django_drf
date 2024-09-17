@@ -43,11 +43,16 @@ from apiApp.models import Movie
         #     'url': {'view_name': 'watch_list_detail'}, 
         # }
 
-
+# Validator
+def name_length(value):
+    if len(value) < 3:
+            raise serializers.ValidationError("Name is too short.Validator function method implemented.")
+    return value
+            
 
 class MovieSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    name = serializers.CharField()
+    name = serializers.CharField(validators=[name_length])
     description = serializers.CharField()
     active = serializers.BooleanField()
     
@@ -63,11 +68,12 @@ class MovieSerializer(serializers.Serializer):
     
     
     # Field-level Validation
-    def validate_name(self, value):        
-        if len(value) < 3:
-            raise serializers.ValidationError("Name is too short.Please write name with more alphabets.")
-        return value
+    # def validate_name(self, value):        
+    #     if len(value) < 3:
+    #         raise serializers.ValidationError("Name is too short.Please write name with more alphabets.Field-Level Validation")
+    #     return value
         
+            
     # Object Level Validation    
     def validate(self, data):
         if data['name'] ==  data['description']:
