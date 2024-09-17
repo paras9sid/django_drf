@@ -10,7 +10,7 @@ class Movie(models.Model):
     active = models.BooleanField(default=True)
     
     def __str__(self) -> str:
-        return self.name
+        return str(self.id) + " | " + self.name
     
     
 # class StreamPlatform(models.Model):
