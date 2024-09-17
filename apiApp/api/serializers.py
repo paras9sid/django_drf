@@ -1,53 +1,22 @@
 from rest_framework import serializers
-from apiApp.models import Movie
-# from apiApp.models import Watchlist, StreamPlatform, Review
+# from apiApp.models import Movie
+from apiApp.models import Watchlist, StreamPlatform
 
 
 
 # Model Serializer
-
-class MovieSerializer(serializers.ModelSerializer):
+class WatchListSerializer(serializers.ModelSerializer):
     
-    # Custom Serializer Fields
-    len_name = serializers.SerializerMethodField()
+    # reviews = ReviewSerializer(many=True, read_only=True)
+    
     class Meta:
-        model = Movie
-        fields = '__all__'
-        # fields = ['id','name','description']
-        # exclude = ['active'] # only this field not wanted so exclude cvariable defined with value not to be seen
+        model = Watchlist
+        fields='__all__'
+        # fields = ('id', 'name', 'description')
+        # fields = ['id', 'name', 'description']
+        # exclude=['active','name']
         
-    # Custom Serializer Method
-    def get_len_name(self, obj):
-        length = len(obj.name)
-        return length
-        
-    # Field-level Validation
-    def validate_name(self, value):        
-        if len(value) < 3:
-            raise serializers.ValidationError("Name is too short.Please write name with more alphabets.Field-Level Validation")
-        return value
-        
-            
-    # Object Level Validation    
-    def validate(self, data):
-        if data['name'] ==  data['description']:
-            raise serializers.ValidationError("Title and description should not be same.")
-        return data        
-    
-
-
-# class WatchListSerializer(serializers.ModelSerializer):
-    
-#     reviews = ReviewSerializer(many=True, read_only=True)
-    
-#     class Meta:
-#         model = Watchlist
-#         fields='__all__'
-#         # fields = ('id', 'name', 'description')
-#         # fields = ['id', 'name', 'description']
-#         # exclude=['active','name']
-        
-# class StreamPlatformSerializer(serializers.ModelSerializer):
+class StreamPlatformSerializer(serializers.ModelSerializer):
 # class StreamPlatformSerializer(serializers.HyperlinkedModelSerializer):
     
     #realtionship
@@ -60,9 +29,9 @@ class MovieSerializer(serializers.ModelSerializer):
     # )
 
     
-    # class Meta:
-    #     model = StreamPlatform
-    #     fields = '__all__'
+    class Meta:
+        model = StreamPlatform
+        fields = '__all__'
         # extra_kwargs = {
         #     'url': {'view_name': 'watch_list_detail'}, 
         # }
@@ -77,6 +46,41 @@ class MovieSerializer(serializers.ModelSerializer):
 #         exclude=['watchlist']
 
 
+
+
+
+# ----------------------------------------------
+
+# Model Serializer
+
+# class MovieSerializer(serializers.ModelSerializer):
+    
+    # Custom Serializer Fields
+    # len_name = serializers.SerializerMethodField()
+    # class Meta:
+        # model = Movie
+        # fields = '__all__'
+        # fields = ['id','name','description']
+        # exclude = ['active'] # only this field not wanted so exclude cvariable defined with value not to be seen
+        
+    # Custom Serializer Method
+    # def get_len_name(self, obj):
+        # length = len(obj.name)
+        # return length
+        
+    # Field-level Validation
+    # def validate_name(self, value):        
+        # if len(value) < 3:
+        #     raise serializers.ValidationError("Name is too short.Please write name with more alphabets.Field-Level Validation")
+        # return value
+        
+            
+    # Object Level Validation    
+    # def validate(self, data):
+        # if data['name'] ==  data['description']:
+        #     raise serializers.ValidationError("Title and description should not be same.")
+        # return data        
+    
 
 
 # -----------------------------------------------------------------------------------
