@@ -24,11 +24,11 @@ urlpatterns = [
     
     path('list/',WatchListAV.as_view(),name='watch_list'),
     path('list/<int:pk>/',WatchListDetailAV.as_view(),name='watch_list_detail'),
-    
-    # path('',include(router.urls)),
-    
     path('stream/',StreamPlatformAV.as_view(),name='stream'),
     path('stream/<int:pk>/',StreamPlatformDetailAV.as_view(),name='stream_detail'),
+    
+    
+    # path('',include(router.urls)),
     
     # path('<int:pk>/review-create/',ReviewCreate.as_view(),name='review_create'),
     # path('<int:pk>/reviews/',ReviewList.as_view(),name='review_list'),

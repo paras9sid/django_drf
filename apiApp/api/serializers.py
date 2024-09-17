@@ -13,14 +13,13 @@ class WatchListSerializer(serializers.ModelSerializer):
         model = Watchlist
         fields='__all__'
         # fields = ('id', 'name', 'description')
-        # fields = ['id', 'name', 'description']
         # exclude=['active','name']
         
 class StreamPlatformSerializer(serializers.ModelSerializer):
 # class StreamPlatformSerializer(serializers.HyperlinkedModelSerializer):
     
-    #realtionship
-    # watchlist = WatchListSerializer(many=True, read_only=True)
+    # Nested Serializer Realtionship
+    watchlist = WatchListSerializer(many=True, read_only=True)
     
     # watchlist = serializers.HyperlinkedRelatedField(
     #     many=True,
