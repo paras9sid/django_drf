@@ -3,22 +3,21 @@ from django.shortcuts import get_object_or_404
 # from apiApp.models import Movie
 # from .serializers import MovieSerializer
 
-from apiApp.models import Watchlist, StreamPlatform
-from .serializers import WatchListSerializer, StreamPlatformSerializer
+from apiApp.models import Watchlist, StreamPlatform, Review
+from .serializers import WatchListSerializer, StreamPlatformSerializer, ReviewSerializer
 
 
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-# from rest_framework import generics
-# # from rest_framework import mixins
+from rest_framework import generics
+# from rest_framework import mixins
 
 # from rest_framework import viewsets
 # from rest_framework.exceptions import ValidationError
 # from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
 
 # from .permissions import IsAdminOrReadOnly, IsReviewUserOrReadOnly
-
 
 
 
@@ -51,29 +50,38 @@ from rest_framework.views import APIView
 #         serializer.save(watchlist=watchlist, review_user=review_user)
 #         # return super().perform_create(serializer)
 
-# class ReviewList(generics.ListAPIView):
-#     # queryset = Review.objects.all() # accessing all reviews
+class ReviewList(generics.ListCreateAPIView):
+    queryset = Review.objects.all() # accessing all reviews
+    serializer_class = ReviewSerializer
+    # permission_classes = [IsAuthenticated]
     
-#     serializer_class = ReviewSerializer
-#     # permission_classes = [IsAuthenticated]
+    #customizing url 
+    # def get_queryset(self):
+    #     pk = self.kwargs['pk']
+    #     return Review.objects.filter(watchlist=pk) # watchlistmodel field from model Review
     
-#     #customizing url 
-#     def get_queryset(self):
-#         pk = self.kwargs['pk']
-#         return Review.objects.filter(watchlist=pk) # watchlistmodel field from model Review
+# class ReadOnly(BasePermission):
+#     def has_permission(self, request, view):
+#         return request.method in SAFE_METHODS
     
-# # class ReadOnly(BasePermission):
-# #     def has_permission(self, request, view):
-# #         return request.method in SAFE_METHODS
-    
-# class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
+class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    # permission_classes = [IsAuthenticated|ReadOnly]
+    # permission_classes = [IsAdminOrReadOnly]
+    # permission_classes = [IsReviewUserOrReadOnly]
+
+
+
+# class ReviewList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
 #     queryset = Review.objects.all()
 #     serializer_class = ReviewSerializer
-#     # permission_classes = [IsAuthenticated|ReadOnly]
-#     # permission_classes = [IsAdminOrReadOnly]
-#     permission_classes = [IsReviewUserOrReadOnly]
 
+#     def get(self, request, *args, **kwargs):
+#         return self.list(request, *args, **kwargs)
 
+#     def post(self, request, *args, **kwargs):
+#         return self.create(request, *args, **kwargs)
 
 # class ReviewDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
 #     queryset = Review.objects.all()
@@ -87,19 +95,6 @@ from rest_framework.views import APIView
 
 #     def delete(self, request, *args, **kwargs):
 #         return self.destroy(request, *args, **kwargs)
-
-# class ReviewList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
-#     queryset = Review.objects.all()
-#     serializer_class = ReviewSerializer
-    
-#     def get(self, request, *args, **kwargs):
-#         return self.list(request, *args, **kwargs)
-
-#     def post(self, request, *args, **kwargs):
-#         return self.create(request, *args, **kwargs)
-
-
-
 
 class WatchListAV(APIView):
     
