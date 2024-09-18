@@ -1,8 +1,5 @@
 from django.shortcuts import get_object_or_404
 
-# from apiApp.models import Movie
-# from .serializers import MovieSerializer
-
 from apiApp.models import Watchlist, StreamPlatform, Review
 from .serializers import WatchListSerializer, StreamPlatformSerializer, ReviewSerializer
 
@@ -13,7 +10,7 @@ from rest_framework.views import APIView
 from rest_framework import generics
 # from rest_framework import mixins
 
-# from rest_framework import viewsets
+from rest_framework import viewsets
 # from rest_framework.exceptions import ValidationError
 # from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
 
@@ -194,12 +191,11 @@ class StreamPlatformDetailAV(APIView):
         
 
         
-        
-# # # Model Viewset
-# class StreamPlatformVS(viewsets.ModelViewSet):
-#     queryset = StreamPlatform.objects.all()
-#     serializer_class = StreamPlatformSerializer
-#     permission_classes = [IsAdminOrReadOnly]
+# # Model Viewset
+class StreamPlatformVS(viewsets.ModelViewSet):
+    queryset = StreamPlatform.objects.all()
+    serializer_class = StreamPlatformSerializer
+    # permission_classes = [IsAdminOrReadOnly]
 
 
 # #for read only 
@@ -211,7 +207,8 @@ class StreamPlatformDetailAV(APIView):
 # class StreamPlatformVS(viewsets.ViewSet):
 #     def list(self, request):
 #         queryset = StreamPlatform.objects.all()
-#         serializer = StreamPlatformSerializer(queryset, many=True, context={'request': request})
+#         # serializer = StreamPlatformSerializer(queryset, many=True, context={'request': request})
+#         serializer = StreamPlatformSerializer(queryset, many=True)
 #         return Response(serializer.data)
 
 #     def retrieve(self, request, pk=None):
@@ -280,52 +277,4 @@ class StreamPlatformDetailAV(APIView):
         
         
         
-        
-        
 
-#  --------------------------------------------------------------------------------------------
-# FBV
-
-
-# @api_view(['GET','POST'])
-# def movie_list(request):
-    
-#     if request.method == 'GET':
-#         movies = Movie.objects.all()
-#         serializer = MovieSerializer(movies, many=True)
-#         return Response(serializer.data)
-    
-#     if request.method == 'POST':
-#         serializer = MovieSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         else:
-#             return Response(serializer.errors)
-
-
-# @api_view(['GET', 'PUT', 'DELETE'])
-# def movie_details(request,pk):
-    
-#     if request.method=='GET':
-#         try:
-#             movie = Movie.objects.get(pk=pk)
-#             serializer = MovieSerializer(movie)
-#             return Response(serializer.data)
-#         except Movie.DoesNotExist:
-#             return Response({'Error':'Movie not found.'}, status=status.HTTP_404_NOT_FOUND)
-        
-#     if request.method=='PUT':
-#         movie = Movie.objects.get(pk=pk)
-#         serializer = MovieSerializer(movie, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         else:
-#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
-#     if request.method=='DELETE':
-#         movie = Movie.objects.get(pk=pk)
-#         movie.delete()       
-#         return Response(status=status.HTTP_204_NO_CONTENT)
-    
