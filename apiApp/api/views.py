@@ -196,13 +196,18 @@ class StreamPlatformVS(viewsets.ModelViewSet):
     queryset = StreamPlatform.objects.all()
     serializer_class = StreamPlatformSerializer
     # permission_classes = [IsAdminOrReadOnly]
+    
 
+#  --------------------------------------------------------------------------
 
 # #for read only 
 # class StreamPlatformVS(viewsets.ReadOnlyModelViewSet):
     
 #     queryset = StreamPlatform.objects.all()
 #     serializer_class = StreamPlatformSerializer
+
+# --------------------------------------------------------------------------
+
         
 # class StreamPlatformVS(viewsets.ViewSet):
 #     def list(self, request):
