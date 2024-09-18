@@ -21,16 +21,17 @@ from rest_framework import generics
 
 
 
-# class ReviewCreate(generics.CreateAPIView):
-#     serializer_class = ReviewSerializer
-#     permission_classes = [IsAuthenticated]
+class ReviewCreate(generics.CreateAPIView):
+    serializer_class = ReviewSerializer
+    # permission_classes = [IsAuthenticated]
     
-#     def get_queryset(self):
-#         return Review.objects.all()
+    # def get_queryset(self):
+    #     return Review.objects.all()
     
-#     def perform_create(self, serializer):
-#         pk = self.kwargs.get('pk')
-#         watchlist = Watchlist.objects.get(pk=pk)
+    #over write create method
+    def perform_create(self, serializer):
+        pk = self.kwargs.get('pk')
+        watchlist = Watchlist.objects.get(pk=pk)
         
 #         #  1 user 1 review/movie not more
 #         review_user = self.request.user
@@ -47,18 +48,22 @@ from rest_framework import generics
 #         watchlist.number_of_ratings += 1
 #         watchlist.save()
         
-#         serializer.save(watchlist=watchlist, review_user=review_user)
-#         # return super().perform_create(serializer)
+        # serializer.save(watchlist=watchlist, review_user=review_user)
+        serializer.save(watchlist=watchlist)
+        # return super().perform_create(serializer)
 
-class ReviewList(generics.ListCreateAPIView):
-    queryset = Review.objects.all() # accessing all reviews
+# class ReviewList(generics.ListCreateAPIView):
+# will create review per wathclist in another seperate function/Class
+class ReviewList(generics.ListAPIView):
+    
+    # queryset = Review.objects.all() # accessing all reviews
     serializer_class = ReviewSerializer
     # permission_classes = [IsAuthenticated]
     
-    #customizing url 
-    # def get_queryset(self):
-    #     pk = self.kwargs['pk']
-    #     return Review.objects.filter(watchlist=pk) # watchlistmodel field from model Review
+    # customizing url for displaying review for 1 movie at a time
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return Review.objects.filter(watchlist=pk) # watchlistmodel field from model Review
     
 # class ReadOnly(BasePermission):
 #     def has_permission(self, request, view):
