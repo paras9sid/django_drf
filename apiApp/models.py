@@ -26,28 +26,13 @@ class Watchlist(models.Model):
         return str(self.id) + " | " + self.title
     
 class Review(models.Model):
-    # review_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    review_user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    watchlist = models.ForeignKey(Watchlist, on_delete=models.CASCADE, related_name='reviews')
     description = models.CharField(max_length=200, null=True)
+    watchlist = models.ForeignKey(Watchlist, on_delete=models.CASCADE, related_name='reviews')
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self) -> str:
-        # return str(self.id) + " | " + str(self.rating) + " | " + self.watchlist.title + " | " + str(self.review_user)
-        return str(self.id) + " | " + str(self.rating) + " | " + self.watchlist.title
-
-    
-
-    
-
-#  -----------------------
-
-# class Movie(models.Model):
-#     name = models.CharField(max_length=50)
-#     description = models.CharField(max_length=200)
-#     active = models.BooleanField(default=True)
-    
-#     def __str__(self) -> str:
-#         return str(self.id) + " | " + self.name
+        return str(self.rating) + " | " + self.watchlist.title

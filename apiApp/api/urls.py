@@ -3,7 +3,6 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 from . views import (WatchListAV, WatchListDetailAV,
-                    StreamPlatformAV, StreamPlatformDetailAV,
                     ReviewList,ReviewDetail,ReviewCreate,
                     StreamPlatformVS)
 
