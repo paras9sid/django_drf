@@ -21,6 +21,9 @@ class ReviewCreate(generics.CreateAPIView):
     serializer_class = ReviewSerializer
     # permission_classes = [IsAuthenticated]
     
+    
+    # AssertionError at /watch/1/review-create/
+    # 'ReviewCreate' should either include a `queryset` attribute, or override the `get_queryset()` method.
     def get_queryset(self):
         return Review.objects.all()
     
@@ -171,3 +174,4 @@ class StreamPlatformVS(viewsets.ModelViewSet):
     queryset = StreamPlatform.objects.all()
     serializer_class = StreamPlatformSerializer
     # permission_classes = [IsAdminOrReadOnly]
+
