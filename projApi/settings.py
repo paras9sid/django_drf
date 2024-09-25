@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apiApp',
     'rest_framework',
-    # 'rest_framework.authtoken',
+    'rest_framework.authtoken',
     # 'user_app_auth',
 ]
 
@@ -130,17 +130,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #PERMISSIONS DRF
 
-# REST_FRAMEWORK = {
-#     # 'DEFAULT_PERMISSION_CLASSES': [
-#     #     'rest_framework.permissions.IsAuthenticated',
-#     # ],    
-#     #Basic authetication- only for testinbg purpose
-#     # 'DEFAULT_AUTHENTICATION_CLASSES': [
-#     #     'rest_framework.authentication.BasicAuthentication',
-#     # ],
+REST_FRAMEWORK = {
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ],    
+    #Basic authetication- only for testinbg purpose
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+    ],
     
-#     # token authentication
+    # token authentication
 #     'DEFAULT_AUTHENTICATION_CLASSES': [
 #         'rest_framework.authentication.TokenAuthentication',
 #     ],
-# }
+}

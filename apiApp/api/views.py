@@ -51,7 +51,8 @@ class ReviewList(generics.ListAPIView):
     
     # queryset = Review.objects.all() # accessing all reviews
     serializer_class = ReviewSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    # permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
     
     # customizing url for displaying review for 1 movie at a time
     def get_queryset(self):
