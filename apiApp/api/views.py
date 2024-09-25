@@ -12,8 +12,8 @@ from rest_framework import generics
 
 from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
-# from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
-# from .permissions import IsAdminOrReadOnly, IsReviewUserOrReadOnly
+from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS, IsAuthenticatedOrReadOnly
+from .permissions import IsAdminOrReadOnly, IsReviewUserOrReadOnly
 
 
 
@@ -55,7 +55,7 @@ class ReviewList(generics.ListAPIView):
     
     # queryset = Review.objects.all() # accessing all reviews
     serializer_class = ReviewSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     
     # customizing url for displaying review for 1 movie at a time
     def get_queryset(self):
@@ -69,7 +69,7 @@ class ReviewList(generics.ListAPIView):
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    # permission_classes = [IsAuthenticated|ReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     # permission_classes = [IsAdminOrReadOnly]
     # permission_classes = [IsReviewUserOrReadOnly]
 
