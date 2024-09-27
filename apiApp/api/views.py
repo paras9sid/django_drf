@@ -19,7 +19,7 @@ from .permissions import IsAdminOrReadOnly, IsReviewUserOrReadOnly
 
 class ReviewCreate(generics.CreateAPIView):
     serializer_class = ReviewSerializer
-   
+
     # AssertionError at /watch/1/review-create/
     # 'ReviewCreate' should either include a `queryset` attribute, or override the `get_queryset()` method.
     def get_queryset(self):
@@ -49,34 +49,24 @@ class ReviewCreate(generics.CreateAPIView):
 
 class ReviewList(generics.ListAPIView):
     
-    # queryset = Review.objects.all() # accessing all reviews
     serializer_class = ReviewSerializer
-    # permission_classes = [IsAuthenticatedOrReadOnly]
     permission_classes = [IsAuthenticated]
     
     # customizing url for displaying review for 1 movie at a time
     def get_queryset(self):
         pk = self.kwargs['pk']
         return Review.objects.filter(watchlist=pk) # watchlistmodel field from model Review
-    
-# class ReadOnly(BasePermission):
-#     def has_permission(self, request, view):
-#         return request.method in SAFE_METHODS
-    
+        
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    # permission_classes = [IsAuthenticatedOrReadOnly]
-    # permission_classes = [IsAdminOrReadOnly]
     permission_classes = [IsReviewUserOrReadOnly]
 
 
 
 
 class WatchListAV(APIView):
-    
-#     permission_classes = [IsAdminOrReadOnly]
-    
+        
     def get(self, request):
         watchlist = Watchlist.objects.all()
         serializer = WatchListSerializer(watchlist, many=True)
