@@ -4,7 +4,8 @@ from rest_framework.routers import DefaultRouter
 
 from . views import (WatchListAV, WatchListDetailAV,
                     ReviewList,ReviewDetail,ReviewCreate,
-                    StreamPlatformVS)
+                    StreamPlatformVS,
+                    StreamPlatformAV,StreamPlatformDetailAV)
 
 
 # viewsets and routers
@@ -21,6 +22,9 @@ urlpatterns = [
 
     # viewsetts and routers
     path('',include(router.urls)),
+
+    # path('stream/',StreamPlatformAV.as_view(),name='stream'),
+    # path('stream/<int:pk>/',StreamPlatformDetailAV.as_view(),name='stream_detail'),
     
     path('<int:pk>/review-create/',ReviewCreate.as_view(),name='review-create'),
     path('<int:pk>/reviews/',ReviewList.as_view(),name='review-list'),
