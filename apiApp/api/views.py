@@ -15,6 +15,8 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS, IsAuthenticatedOrReadOnly
 from .permissions import IsAdminOrReadOnly, IsReviewUserOrReadOnly
 
+from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
+
 
 
 class ReviewCreate(generics.CreateAPIView):
@@ -55,6 +57,9 @@ class ReviewList(generics.ListAPIView):
     
     serializer_class = ReviewSerializer
     # permission_classes = [IsAuthenticated]
+    throttle_classes = [UserRateThrottle, AnonRateThrottle]
+
+
     
     # customizing url for displaying review for 1 movie at a time
     def get_queryset(self):
@@ -65,6 +70,8 @@ class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     permission_classes = [IsReviewUserOrReadOnly]
+    throttle_classes = [UserRateThrottle, AnonRateThrottle]
+
 
 
 class WatchListAV(APIView):
