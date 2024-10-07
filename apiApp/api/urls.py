@@ -2,10 +2,12 @@ from django.urls import path, include
 
 from rest_framework.routers import DefaultRouter
 
-from . views import (WatchListAV, WatchListDetailAV,
+from . views import ( WatchListAV, WatchListDetailAV,
                     ReviewList,ReviewDetail,ReviewCreate,
                     StreamPlatformVS,
-                    StreamPlatformAV,StreamPlatformDetailAV)
+                    StreamPlatformAV,StreamPlatformDetailAV,
+                    UserReview
+)
 
 
 # viewsets and routers
@@ -29,5 +31,12 @@ urlpatterns = [
     path('<int:pk>/review-create/',ReviewCreate.as_view(),name='review-create'),
     path('<int:pk>/reviews/',ReviewList.as_view(),name='review-list'),
     path('review/<int:pk>/',ReviewDetail.as_view(),name='review-detail'),
+
+    # filtering
+    # path('review/<str:username>/',UserReview.as_view(),name='user-review-detail'),
+
+    # filtering with query params
+    path('review/',UserReview.as_view(),name='user-review-detail'),
+
     
 ]

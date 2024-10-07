@@ -19,6 +19,27 @@ from .permissions import IsAdminOrReadOnly, IsReviewUserOrReadOnly
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle, ScopedRateThrottle
 
 
+class UserReview(generics.ListAPIView):
+    serializer_class = ReviewSerializer
+    # permission_classes = [IsAuthenticated]
+    # throttle_classes = [UserRateThrottle, AnonRateThrottle]
+    # throttle_classes = [ReviewListThrottle, AnonRateThrottle]
+
+    # def get_queryset(self):
+    #     username = self.kwargs['username']
+    #     return Review.objects.filter(review_user__username=username) # watchlistmodel field from model Review
+    
+    # filtering against query params
+    def get_queryset(self):
+
+        username = self.request.query_params.get('username')
+        # if username is not None:
+        #     queryset = queryset.filter(purchaser__username=username)
+        # return queryset
+    
+        # username = self.kwargs['username']
+        return Review.objects.filter(review_user__username=username) # watchlistmodel field from model Review
+
 
 class ReviewCreate(generics.CreateAPIView):
 
@@ -59,10 +80,8 @@ class ReviewList(generics.ListAPIView):
     serializer_class = ReviewSerializer
     # permission_classes = [IsAuthenticated]
     # throttle_classes = [UserRateThrottle, AnonRateThrottle]
-    throttle_classes = [ReviewListThrottle]
+    throttle_classes = [ReviewListThrottle, AnonRateThrottle]
 
-
-    
     # customizing url for displaying review for 1 movie at a time
     def get_queryset(self):
         pk = self.kwargs['pk']
