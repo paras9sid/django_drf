@@ -21,6 +21,8 @@ urlpatterns = [
     
     path('list/',WatchListAV.as_view(),name='watch-list'),
     path('<int:pk>/',WatchListDetailAV.as_view(),name='watchlist-detail'),
+    #filtering-searching-ordering
+    path('list2/',WatchListGV.as_view(),name='watch-list'),
 
     # viewsetts and routers
     path('',include(router.urls)),
@@ -38,8 +40,4 @@ urlpatterns = [
     # filtering with query params
     path('review/',UserReview.as_view(),name='user-review-detail'),
 
-
-    path('list2/',WatchListGV.as_view(),name='watch-list'),
-
-    
 ]
