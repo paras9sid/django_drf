@@ -11,12 +11,14 @@ from rest_framework.views import APIView
 from rest_framework import generics
 # from rest_framework import mixins
 
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS, IsAuthenticatedOrReadOnly
 from .permissions import IsAdminOrReadOnly, IsReviewUserOrReadOnly
 
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle, ScopedRateThrottle
+from django_filters.rest_framework import DjangoFilterBackend
+
 
 
 class UserReview(generics.ListAPIView):
@@ -81,6 +83,9 @@ class ReviewList(generics.ListAPIView):
     # permission_classes = [IsAuthenticated]
     # throttle_classes = [UserRateThrottle, AnonRateThrottle]
     throttle_classes = [ReviewListThrottle, AnonRateThrottle]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['review_user__username', 'active']
+
 
     # customizing url for displaying review for 1 movie at a time
     def get_queryset(self):
@@ -95,7 +100,13 @@ class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     throttle_classes = [ScopedRateThrottle]
     throttle_scope = 'review-detail'
 
-
+class WatchListGV(generics.ListAPIView):
+    queryset = Watchlist.objects.all()
+    serializer_class =  WatchListSerializer
+    # filter_backends = [filters.SearchFilter]
+    # filterset_fields = ['title', 'platform__name']
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['avg_rating']
 
 class WatchListAV(APIView):
     permission_classes = [IsAdminOrReadOnly]

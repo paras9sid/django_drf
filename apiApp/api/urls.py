@@ -6,7 +6,7 @@ from . views import ( WatchListAV, WatchListDetailAV,
                     ReviewList,ReviewDetail,ReviewCreate,
                     StreamPlatformVS,
                     StreamPlatformAV,StreamPlatformDetailAV,
-                    UserReview
+                    UserReview, WatchListGV
 )
 
 
@@ -37,6 +37,9 @@ urlpatterns = [
 
     # filtering with query params
     path('review/',UserReview.as_view(),name='user-review-detail'),
+
+
+    path('list2/',WatchListGV.as_view(),name='watch-list'),
 
     
 ]
