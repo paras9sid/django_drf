@@ -3,6 +3,8 @@ from django.shortcuts import get_object_or_404
 from apiApp.models import Watchlist, StreamPlatform, Review
 from .serializers import WatchListSerializer, StreamPlatformSerializer, ReviewSerializer
 from .throttling import ReviewCreateThrottle, ReviewListThrottle
+from .permissions import IsAdminOrReadOnly, IsReviewUserOrReadOnly
+from .pagination import WatchListPagination
 
 
 from rest_framework.response import Response
@@ -14,7 +16,6 @@ from rest_framework import generics
 from rest_framework import viewsets, filters
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS, IsAuthenticatedOrReadOnly
-from .permissions import IsAdminOrReadOnly, IsReviewUserOrReadOnly
 
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle, ScopedRateThrottle
 from django_filters.rest_framework import DjangoFilterBackend
@@ -107,6 +108,9 @@ class WatchListGV(generics.ListAPIView):
     # filterset_fields = ['title', 'platform__name']
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['avg_rating']
+
+    #pagination
+    pagination_class = WatchListPagination
 
 class WatchListAV(APIView):
     permission_classes = [IsAdminOrReadOnly]
