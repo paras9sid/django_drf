@@ -4,7 +4,7 @@ from apiApp.models import Watchlist, StreamPlatform, Review
 from .serializers import WatchListSerializer, StreamPlatformSerializer, ReviewSerializer
 from .throttling import ReviewCreateThrottle, ReviewListThrottle
 from .permissions import IsAdminOrReadOnly, IsReviewUserOrReadOnly
-from .pagination import WatchListPagination
+from .pagination import WatchListPagination, WatchListLimitOS
 
 
 from rest_framework.response import Response
@@ -110,8 +110,7 @@ class WatchListGV(generics.ListAPIView):
     ordering_fields = ['avg_rating']
 
     #pagination
-    pagination_class = WatchListPagination
-
+    pagination_class = WatchListLimitOS
 class WatchListAV(APIView):
     permission_classes = [IsAdminOrReadOnly]
 
