@@ -20,7 +20,7 @@ class Watchlist(models.Model):
     active = models.BooleanField(default=True)
     avg_rating = models.FloatField(default=0)
     number_of_ratings = models.IntegerField(default=0)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
     
     def __str__(self) -> str:
         return str(self.id) + " | " + self.title
@@ -31,7 +31,7 @@ class Review(models.Model):
     description = models.CharField(max_length=200, null=True)
     watchlist = models.ForeignKey(Watchlist, on_delete=models.CASCADE, related_name='reviews')
     active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self) -> str:

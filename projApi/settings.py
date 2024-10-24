@@ -153,4 +153,9 @@ REST_FRAMEWORK = {
     # Pagination
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     # 'PAGE_SIZE': 5 # results per page
+
+    # JSON response view instead od browsable api
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
 }

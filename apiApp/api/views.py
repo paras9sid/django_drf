@@ -4,7 +4,7 @@ from apiApp.models import Watchlist, StreamPlatform, Review
 from .serializers import WatchListSerializer, StreamPlatformSerializer, ReviewSerializer
 from .throttling import ReviewCreateThrottle, ReviewListThrottle
 from .permissions import IsAdminOrReadOnly, IsReviewUserOrReadOnly
-from .pagination import WatchListPagination, WatchListLimitOS
+from .pagination import WatchListPagination, WatchListLimitOS, WatchListCursorPag
 
 
 from rest_framework.response import Response
@@ -102,15 +102,15 @@ class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     throttle_scope = 'review-detail'
 
 class WatchListGV(generics.ListAPIView):
-    queryset = Watchlist.objects.all()
+    queryset = Watchlist.objects.all() 
     serializer_class =  WatchListSerializer
     # filter_backends = [filters.SearchFilter]
     # filterset_fields = ['title', 'platform__name']
-    filter_backends = [filters.OrderingFilter]
-    ordering_fields = ['avg_rating']
+    # filter_backends = [filters.OrderingFilter]
+    # ordering_fields = ['avg_rating']
 
     #pagination
-    pagination_class = WatchListLimitOS
+    pagination_class = WatchListCursorPag
 class WatchListAV(APIView):
     permission_classes = [IsAdminOrReadOnly]
 
