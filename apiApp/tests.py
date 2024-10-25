@@ -39,5 +39,44 @@ class StreamPlatformTestCase(APITestCase):
         response = self.client.get(reverse('streamplatform-detail', args=(self.stream.id, )))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    # homework - testcases for create,put and delete request for normal user - status = 403 forbidden
+    # homework - testcases for create,put and delete request for normal user - status = 403 forbidden because permission is admin/readonly in views.
 
+
+class WatchListTestCase(APITestCase):
+
+    def setUp(self):
+        self.user = User.objects.create_user(username="example", password="newpassword@123")
+        self.token = Token.objects.get(user__username=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+
+        self.stream = models.StreamPlatform.objects.create(name="Netflix",
+                                                    about="#1 platform",
+                                                    website="https://www.netflix.com"
+                                                    )
+        
+        self.watchlist = models.Watchlist.objects.create(platform=self.stream,
+                                                        title="Emaple movie",
+                                                        storyline="Example story",
+                                                        active=True
+                                                        )
+
+    def test_watchlist_create(self):
+        data={
+            "platform": self.stream,
+            "title":"example mvie",
+            "storyline":"exmaple story",
+            "active": True
+        }
+
+        response = self.client.post(reverse('watch-list'), data)
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def test_watchlist_list(self):
+
+        response = self.client.get(reverse('watch-list'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+    def test_watchlist_inbd(self):
+        response = self.client.get(reverse('watchlist-detail', args=(self.watchlist.id, )))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
