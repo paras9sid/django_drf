@@ -176,3 +176,9 @@ class ReviewTestCase(APITestCase):
 
     # create delete test case
 
+
+    def test_review_user(self):
+        response = self.client.get('/watch/review/?username' + self.user.username)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        
+
