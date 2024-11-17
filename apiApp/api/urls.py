@@ -1,43 +1,24 @@
 from django.urls import path, include
-
 from rest_framework.routers import DefaultRouter
-
-from . views import ( WatchListAV, WatchListDetailAV,
-                    ReviewList,ReviewDetail,ReviewCreate,
-                    StreamPlatformVS,
-                    StreamPlatformAV,StreamPlatformDetailAV,
-                    UserReview, WatchListGV
-)
-
+from . import views 
 
 # viewsets and routers
 router = DefaultRouter()
-router.register('stream',StreamPlatformVS,basename='streamplatform')
-# urlpatterns = router.urls
-
-
+router.register('stream',views.StreamPlatformVS,basename='streamplatform')
 
 urlpatterns = [
     
-    path('list/',WatchListAV.as_view(),name='watch-list'),
-    path('<int:pk>/',WatchListDetailAV.as_view(),name='watchlist-detail'),
-    #filtering-searching-ordering
-    path('list2/',WatchListGV.as_view(),name='watch-list'),
+    path('list/',views.WatchListAV.as_view(),name='watch-list'),
+    path('<int:pk>/',views.WatchListDetailAV.as_view(),name='watchlist-detail'),
 
     # viewsetts and routers
     path('',include(router.urls)),
 
-    # path('stream/',StreamPlatformAV.as_view(),name='stream'),
-    # path('stream/<int:pk>/',StreamPlatformDetailAV.as_view(),name='stream_detail'),
-    
-    path('<int:pk>/review-create/',ReviewCreate.as_view(),name='review-create'),
-    path('<int:pk>/reviews/',ReviewList.as_view(),name='review-list'),
-    path('review/<int:pk>/',ReviewDetail.as_view(),name='review-detail'),
-
-    # filtering
-    # path('review/<str:username>/',UserReview.as_view(),name='user-review-detail'),
+    path('<int:pk>/reviews/create/',views.ReviewCreate.as_view(),name='review-create'),
+    path('<int:pk>/reviews/',views.ReviewList.as_view(),name='review-list'),
+    path('reviews/<int:pk>/',views.ReviewDetail.as_view(),name='review-detail'),
 
     # filtering with query params
-    path('review/',UserReview.as_view(),name='user-review-detail'),
+    path('user-reviews/',views.UserReview.as_view(),name='user-review-detail'),
 
 ]

@@ -1,9 +1,6 @@
 #CUSTOM PERMISSIONS
-
 from rest_framework import permissions
 
-
-#
 class IsAdminOrReadOnly(permissions.IsAdminUser):
     
     def has_permission(self,request,view):
@@ -14,8 +11,6 @@ class IsAdminOrReadOnly(permissions.IsAdminUser):
         else:
                 # Check permissions for write request UNSAFE REQUEST - PUT DELEE POST
             return bool(request.user and request.user.is_staff)
-        
-        
 class IsReviewUserOrReadOnly(permissions.BasePermission):
     
     def has_object_permission(self, request, view, obj):

@@ -12,7 +12,7 @@ from .serializers import RegistrationSerializer
 def logout_view(request):
     if request.method == 'POST':
         # .user = current logged in user
-        request.user.auth_token.delete()
+        # request.user.auth_token.delete()
         return Response(status=status.HTTP_200_OK)
 
 @api_view(['POST',]) # if api_view decorator not used - then csrf token not set error.
